@@ -144,7 +144,7 @@ module "cloudfront" {
     # response_headers_policy_id = "67f7725c-6f97-4210-82d7-5512b31e9d03"
 
     # AllViewerAndCloudFrontHeaders-2022-06
-    origin_request_policy_id = "33f36d7e-f396-46d9-90e0-52428a34d9dc"
+    origin_request_policy_id = "b689b0a8-53d0-40ab-baf2-68738e2966ac"
     # CachingDisabled
     cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
 
