@@ -143,6 +143,11 @@ module "cloudfront" {
     # cache_policy_id            = "b2884449-e4de-46a7-ac36-70bc7f1ddd6d"
     # response_headers_policy_id = "67f7725c-6f97-4210-82d7-5512b31e9d03"
 
+    # AllViewerAndCloudFrontHeaders-2022-06
+    origin_request_policy_id = "33f36d7e-f396-46d9-90e0-52428a34d9dc"
+    # CachingDisabled
+    cache_policy_id = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+
     # lambda_function_association = {
 
     #   # Valid keys: viewer-request, origin-request, viewer-response, origin-response
@@ -211,20 +216,20 @@ module "cloudfront" {
     ssl_support_method  = "sni-only"
   }
 
-  custom_error_response = [{
-    error_code         = 404
-    response_code      = 404
-    response_page_path = "/errors/404.html"
-    }, {
-    error_code         = 403
-    response_code      = 403
-    response_page_path = "/errors/403.html"
-  }]
+#   custom_error_response = [{
+#     error_code         = 404
+#     response_code      = 404
+#     response_page_path = "/errors/404.html"
+#     }, {
+#     error_code         = 403
+#     response_code      = 403
+#     response_page_path = "/errors/403.html"
+#   }]
 
-  geo_restriction = {
-    restriction_type = "whitelist"
-    locations        = ["NO", "UA", "US", "GB"]
-  }
+#   geo_restriction = {
+#     restriction_type = "whitelist"
+#     locations        = ["NO", "UA", "US", "GB", "AU"]
+#   }
 
 }
 
@@ -324,7 +329,7 @@ data "aws_iam_policy_document" "s3_policy" {
   # Origin Access Controls
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${module.s3_one.s3_bucket_arn}/static/*"]
+    resources = ["${module.s3_one.s3_bucket_arn}/*"]
 
     principals {
       type        = "Service"
@@ -348,11 +353,11 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 # CloudFront function
 #########################################
 
-resource "aws_cloudfront_function" "example" {
-  name    = "example-${random_pet.this.id}"
-  runtime = "cloudfront-js-1.0"
-  code    = file("${path.module}/example-function.js")
-}
+# resource "aws_cloudfront_function" "example" {
+#   name    = "example-${random_pet.this.id}"
+#   runtime = "cloudfront-js-1.0"
+#   code    = file("${path.module}/example-function.js")
+# }
 
 ########
 # Extra
