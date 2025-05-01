@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const postData = { firstName, lastName, email, password };
 
     try {
-      const response = await fetch("http://localhost:3001/api/users", {
+      const response = await fetch("https://kqio0gctxg.execute-api.ap-southeast-2.amazonaws.com/test/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(postData),
       });
 
-      if (response.ok) {
+      if (response.status === "200") {
         formMessage.textContent = "Sign up successful!";
         formMessage.style.color = "green";
       } else {
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formMessage.style.color = "red";
       }
     } catch (error) {
+      console.log("Error:", error);
       formMessage.textContent = "An error occurred. Please try again.";
       formMessage.style.color = "red";
     }
